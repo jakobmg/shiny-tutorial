@@ -2,23 +2,25 @@ library(shiny)
 
 # UI
 ui <- fluidPage(
-	titlePanel("Animal Sentence"),
+	titlePanel("Histogram"),
 	#Input
-	selectInput(inputId = "animal", 
-				label = "Choose animal:",
-				choices = c("Cat","Dog",
-							"Lion","Tiger"),
-				selected = "Cat"),
+	numericInput(inputId = "mean", 
+				label = "Mean:",
+				value = 0),
+	numericInput(inputId = "sd", 
+				label = "Standard Deviation:",
+				value = 1, min = 0),
 	#Output
-	textOutput(outputId = "sentence")
+	plotOutput(outputId = "hist")
 )
 
 # Server
 server <- function(input, output) {
-	output$sentence <- renderText({
-		paste0("A ", 
-			   tolower(input$animal), 
-			   " walks down the street.")
+	output$hist <- renderPlot({
+		sample <- rnorm(1000, 
+					  mean = input$mean, 
+					  sd = input$sd)
+		hist(sample)
 	})
 }
 
