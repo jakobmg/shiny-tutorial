@@ -2,6 +2,7 @@ library(shiny)
 
 # UI
 ui <- fluidPage(
+	titlePanel("Animal Sentence"),
 	#Input
 	selectInput(inputId = "animal", 
 				label = "Choose animal:",
